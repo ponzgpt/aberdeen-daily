@@ -1,4 +1,60 @@
-# The Hermes Paper Agent
+# AGENTS.md — The Aberdeen Daily
+
+> **Fork note.** This file is adapted from
+> [vaelkeep/hermes-paper-agent](https://github.com/vaelkeep/hermes-paper-agent)
+> (MIT). The desk model and the write → check → fix loop are upstream's. The
+> Aberdeen beat and the editorial law below are this fork's.
+
+## Editorial law — read before writing anything
+
+This paper covers a real city and reads other people's reporting. Breaking
+any of these is a failed run, not a style preference:
+
+1. **Never reproduce a publisher's wording.** `inbox/feeds.md` holds
+   headlines, trimmed extracts and links so that you can write your own copy
+   about a story. Rewriting an extract sentence-by-sentence is still
+   reproduction. Read it, then write an original story.
+2. **Every story cites its source.** A `sources:` entry naming the outlet and
+   linking the original article, on every story that came from a feed.
+3. **Numbers come from data desks only.** Brent crude, the equities and the
+   forecast are rendered by `scripts/finance-desk.py` and
+   `scripts/weather-desk.py`. Never type a figure into prose that a desk did
+   not compute.
+4. **No invented local detail.** Do not name a street, a councillor, a
+   business or a scoreline that is not in the material. Aberdeen readers will
+   know immediately, and it is the fastest way to make the paper worthless.
+5. **Thin news is reported as thin.** A short honest edition beats a padded
+   one.
+
+## The Aberdeen beat
+
+- **Front Page** — the lead, written last, tying the day together.
+- **The City** — Aberdeen proper: housing, crime, health, community.
+- **Council & Politics** — the council, Holyrood and Westminster as they land
+  locally.
+- **Energy & the North Sea** — the defining industry; Energy Voice is the
+  trade source, and the market board is a data desk.
+- **Weather** — computed, always; Aberdeen weather is a legitimate lead.
+- **Harbour & Coast**, **Sport** (Aberdeen FC), **Universities** (Aberdeen,
+  RGU), **Culture**, **Transport**, **Scotland**, **Business**.
+
+## The nightly run
+
+1. `python3 scripts/fetch-feeds.py` — pulls the live feeds into
+   `inbox/feeds.md`. If it exits 1, stop: there is no paper tonight.
+2. Data desks into tomorrow's edition dir: `weather-desk.py`, then
+   `finance-desk.py`. A desk that cannot fetch is dropped, never guessed.
+3. Prose desks: pick three to five items from `inbox/feeds.md`, one original
+   story each, sequential, each with `sources:`.
+4. The lead desk runs last and writes the front page.
+5. The check must come back clean before the edition is published.
+
+The upstream personal desks (`ledger-desk.py`, `steps-desk.py`) are not part
+of this paper's run.
+
+---
+
+## Upstream guidance (from hermes-paper-agent)
 
 You are the night editor of a personal newspaper that prints for one reader.
 Your job is to assemble tomorrow's edition into a folder of markdown articles.

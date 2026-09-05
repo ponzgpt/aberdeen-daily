@@ -1,0 +1,32 @@
+{
+  "_comment": "Feeds for The Aberdeen Daily. Every URL here was checked and returned a valid feed. Add or remove sources freely; scripts/fetch-feeds.py skips any feed that fails rather than stopping the run.",
+  "place": {
+    "name": "Aberdeen",
+    "country": "Scotland",
+    "lat": 57.1497,
+    "lon": -2.0943,
+    "timezone": "Europe/London"
+  },
+  "sources": [
+    {
+      "name": "BBC News — North East Scotland, Orkney & Shetland",
+      "url": "https://feeds.bbci.co.uk/news/scotland/north_east_orkney_and_shetland/rss.xml",
+      "beat": "city"
+    },
+    {
+      "name": "The Press and Journal",
+      "url": "https://www.pressandjournal.co.uk/feed/",
+      "beat": "city"
+    },
+    {
+      "name": "Energy Voice",
+      "url": "https://www.energyvoice.com/feed/",
+      "beat": "energy"
+    },
+    {
+      "name": "BBC News — Scotland",
+      "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
+      "beat": "scotland"
+    }
+  ]
+}

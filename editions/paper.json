@@ -1,20 +1,19 @@
 {
-  "masthead": "My Hermes Personal Paper",
-  "motto": "Printed nightly, for one reader",
-  "founded": "2026-02-01",
+  "masthead": "The Aberdeen Daily",
+  "motto": "Printed nightly for the Granite City",
+  "founded": "2026-09-05",
   "sections": [
-    { "id": "today", "name": "Today" },
-    { "id": "week", "name": "The Week Ahead" },
-    { "id": "local", "name": "Local" },
+    { "id": "front", "name": "Front Page" },
+    { "id": "city", "name": "The City" },
+    { "id": "council", "name": "Council & Politics" },
+    { "id": "energy", "name": "Energy & the North Sea" },
+    { "id": "business", "name": "Business" },
     { "id": "weather", "name": "Weather" },
-    { "id": "world", "name": "World" },
-    { "id": "technology", "name": "Technology" },
-    { "id": "money", "name": "Money" },
-    { "id": "financial", "name": "Financial" },
-    { "id": "household", "name": "Household" },
-    { "id": "wellbeing", "name": "Wellbeing" },
-    { "id": "notes", "name": "From Your Notes" },
-    { "id": "movies", "name": "Movies" },
-    { "id": "dining", "name": "Dining" }
+    { "id": "harbour", "name": "Harbour & Coast" },
+    { "id": "sport", "name": "Sport" },
+    { "id": "campus", "name": "Universities" },
+    { "id": "culture", "name": "Culture" },
+    { "id": "transport", "name": "Transport" },
+    { "id": "scotland", "name": "Scotland" }
   ]
 }

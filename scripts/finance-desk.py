@@ -10,7 +10,8 @@ numbers or phrasing are wrong; do not have a model "improve" it.
 Usage:
     finance-desk.py <edition_dir> [TICKER ...]
 
-Tickers default to NVDA AMZN MU. Exit status is 1 (and nothing is written) if
+Tickers default to the North Sea board: Brent crude (BZ=F), Shell, BP
+and Harbour Energy — the prices that move Aberdeen. Exit status is 1 (and nothing is written) if
 any ticker fails to resolve, so a nightly job fails the run rather than print
 a paper page with a guessed price.
 
@@ -138,7 +139,7 @@ page, the way every decline in this paper is.
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("edition_dir", type=Path)
-    ap.add_argument("tickers", nargs="*", default=["NVDA", "AMZN", "MU"])
+    ap.add_argument("tickers", nargs="*", default=["BZ=F", "SHEL.L", "BP.L", "HBR.L"])
     args = ap.parse_args()
 
     quotes = []

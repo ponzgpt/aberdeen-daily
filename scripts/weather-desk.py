@@ -12,8 +12,7 @@ Usage:
     weather-desk.py <edition_dir> [--lat L] [--lon L] [--place NAME] [--c|--f]
     weather-desk.py <edition_dir> --place Washington   # uses env defaults
 
-Defaults (WAKE_BASELINE_LAT/LON) are the Washington DC demo. Set real
-coordinates for your own paper. Requires network; exits 1 (and writes nothing)
+Defaults are Aberdeen, Scotland (57.1497, -2.0943), in Celsius. Requires network; exits 1 (and writes nothing)
 if the fetch fails, so a nightly job can fail the run rather than invent a
 paper day with a guessed forecast.
 
@@ -165,10 +164,10 @@ above them is this desk's, and it changes with the data every night.
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("edition_dir", type=Path)
-    ap.add_argument("--lat", type=float, default=float(os.environ.get("WEATHER_LAT", "38.9072")))
-    ap.add_argument("--lon", type=float, default=float(os.environ.get("WEATHER_LON", "-77.0369")))
-    ap.add_argument("--place", default=os.environ.get("WEATHER_PLACE", "Washington"))
-    ap.add_argument("--c", dest="units", action="store_const", const="c", default="f",
+    ap.add_argument("--lat", type=float, default=float(os.environ.get("WEATHER_LAT", "57.1497")))
+    ap.add_argument("--lon", type=float, default=float(os.environ.get("WEATHER_LON", "-2.0943")))
+    ap.add_argument("--place", default=os.environ.get("WEATHER_PLACE", "Aberdeen"))
+    ap.add_argument("--c", dest="units", action="store_const", const="f", default="c",
                     help="report in Celsius; default is Fahrenheit (the demo's voice)")
     args = ap.parse_args()
 
