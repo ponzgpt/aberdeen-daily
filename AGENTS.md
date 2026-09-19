@@ -15,7 +15,7 @@ The Aberdeen Daily: a nightly local newspaper for Aberdeen, written by an agent 
 
 ## The nightly run
 1. `python3 scripts/fetch-feeds.py`; if it exits 1 there is no paper tonight.
-2. `E=editions/<tomorrow>`; `python3 scripts/weather-desk.py $E --place Aberdeen`; `python3 scripts/finance-desk.py $E`. A desk that fails is dropped, never guessed.
+2. `E=editions/$(TZ=Europe/London date +%F)` (the run is at 04:00, so that is the morning being published; if the folder already exists, stop); `python3 scripts/weather-desk.py $E --place Aberdeen`; `python3 scripts/finance-desk.py $E`. A desk that fails is dropped, never guessed.
 3. Three to five prose stories from `inbox/feeds.md`, one file each (`04-…`), sections only from `editions/paper.json`; read `.engine/docs/WRITING.md` for the format.
 4. The front page last: `01-front-page.md`, `section: front`, `priority: 1`, `span: full`; exactly one priority-1 story.
 5. `vael-paper-check --root editions $E --json` until `"ok": true` (aim for `"clean": true`); never commit an edition with marks.
