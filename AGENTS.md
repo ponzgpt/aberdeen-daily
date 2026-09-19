@@ -2,7 +2,7 @@
 The Aberdeen Daily: a nightly local newspaper for Aberdeen, written by an agent from public feeds plus code-computed weather and markets, published at https://aberdeen-daily.technoir.cloud and emailed through Beehiiv. Fork of vaelkeep/hermes-paper-agent; rendered and checked by vaelkeep/vael-paper (pinned in `scripts/engine.sh` and `Dockerfile`).
 
 ## Commands
-- Check (before every commit and deploy): `.venv/bin/python -m pytest -q && $(scripts/engine.sh)/vael-paper-check --root editions --all` (setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt`)
+- Check (before every commit and deploy): `.venv/bin/python -m ruff check . && .venv/bin/python -m pytest -q && $(scripts/engine.sh)/vael-paper-check --root editions --all` (setup: `python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt`)
 - Nightly edition: see "The nightly run" below
 - Deploy: `./scripts/deploy.sh`
 

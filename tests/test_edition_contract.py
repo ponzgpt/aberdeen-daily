@@ -126,5 +126,6 @@ def test_no_edition_reprints_another_editions_story():
             continue
         headline = frontmatter(article.read_text()).get("headline", "").strip().lower()
         edition = article.parent.parent.name
-        assert headline not in seen, f"{edition} repeats a headline from {seen.get(headline)}: {headline!r}"
+        first = seen.get(headline)
+        assert first is None, f"{edition} repeats a headline from {first}: {headline!r}"
         seen[headline] = edition

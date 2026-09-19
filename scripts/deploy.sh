@@ -5,7 +5,7 @@ set -euo pipefail
 APP=aberdeen-daily
 DOMAIN=${DOMAIN:-aberdeen-daily.technoir.cloud}
 PORT=80
-CHECK='.venv/bin/python -m pytest -q && B=$(scripts/engine.sh) && $B/vael-paper-check --root editions --all'
+CHECK='.venv/bin/python -m ruff check . && .venv/bin/python -m pytest -q && B=$(scripts/engine.sh) && $B/vael-paper-check --root editions --all'
 HOST=${HOST:-hoid}
 
 cd "$(git rev-parse --show-toplevel)"
