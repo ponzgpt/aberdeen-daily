@@ -19,4 +19,4 @@ The Aberdeen Daily: a nightly local newspaper for Aberdeen, written by an agent 
 3. Three to five prose stories from `inbox/feeds.md`, one file each (`04-…`), sections only from `editions/paper.json`; read `.engine/docs/WRITING.md` for the format.
 4. The front page last: `01-front-page.md`, `section: front`, `priority: 1`, `span: full`; exactly one priority-1 story.
 5. `vael-paper-check --root editions $E --json` until `"ok": true` (aim for `"clean": true`); never commit an edition with marks.
-6. Commit the edition to `main` and push; deploy; create the Beehiiv draft (never send it: a human sends).
+6. Commit the edition to `main` and push; the VPS deploys it and emails it to the editor for review at 07:00. Beehiiv is paused until the format settles.
