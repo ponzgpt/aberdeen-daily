@@ -1,31 +1,10 @@
-# Edition output — generated, not committed
-
-This is the Vael Paper *generator* repo. Editions are output: the nightly run
-writes them here (or into the vael-paper repo's editions/), and the server
-reads whichever folder it is pointed at. Do not commit generated editions.
-The paper's identity — editions/paper.json — is the one file in here that is
-real and should be kept.
-
-# Local state
-__pycache__/
-*.pyc
-
-# The generated edition folders
-/editions/2026-*/
-/editions/ci/
-
-# Chart plates the exporter draws from the chart: blocks
-/samples/edition/*/images/
-/site/
-/build/
-
-# What quickstart.sh fetches and builds — delete it to start over
-/.quickstart/
-
-# Test and tooling caches
-.pytest_cache/
-.ruff_cache/.engine/
+# Editions under editions/ are the paper's archive and ARE committed.
+.engine/
 .venv/
-.claude/
-inbox/feeds.md
 site/
+inbox/feeds.md
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.claude/
+.DS_Store
