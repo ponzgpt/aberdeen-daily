@@ -34,11 +34,6 @@ def weather_desk():
 
 
 @pytest.fixture(scope="session")
-def finance_desk():
-    return load_desk("finance-desk.py")
-
-
-@pytest.fixture(scope="session")
 def paper_sections() -> set[str]:
     """The only section ids a desk is allowed to use (AGENTS.md, hard rules)."""
     paper = json.loads((REPO / "editions" / "paper.json").read_text())
@@ -50,21 +45,6 @@ def open_meteo() -> dict:
     return json.loads((FIXTURES / "open-meteo.json").read_text())
 
 
-@pytest.fixture
-def quote():
-    """Build a finance quote dict without going near the network."""
-    def _quote(symbol="AAPL", name=None, price=100.0, change=1.0, pct=1.0,
-               hi52=None, lo52=None):
-        return {
-            "symbol": symbol,
-            "name": name or symbol,
-            "price": price,
-            "change": change,
-            "pct": pct,
-            "hi52": hi52 if hi52 is not None else price * 1.2,
-            "lo52": lo52 if lo52 is not None else price * 0.8,
-        }
-    return _quote
 
 
 def frontmatter(article: str) -> dict:

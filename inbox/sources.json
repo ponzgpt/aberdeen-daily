@@ -1,5 +1,5 @@
 {
-  "_comment": "Feeds for The Aberdeen Daily. Every URL here was checked and returned a valid feed. Add or remove sources freely; scripts/fetch-feeds.py skips any feed that fails rather than stopping the run.",
+  "_comment": "Feeds for The Aberdeen Daily: what's on, food and drink, culture and good news. Every URL was checked and returned a valid feed. scripts/fetch-feeds.py skips a feed that fails. `pages` are listings the editor reads directly for dates and venues.",
   "place": {
     "name": "Aberdeen",
     "country": "Scotland",
@@ -8,25 +8,15 @@
     "timezone": "Europe/London"
   },
   "sources": [
-    {
-      "name": "BBC News — North East Scotland, Orkney & Shetland",
-      "url": "https://feeds.bbci.co.uk/news/scotland/north_east_orkney_and_shetland/rss.xml",
-      "beat": "city"
-    },
-    {
-      "name": "The Press and Journal",
-      "url": "https://www.pressandjournal.co.uk/feed/",
-      "beat": "city"
-    },
-    {
-      "name": "Energy Voice",
-      "url": "https://www.energyvoice.com/feed/",
-      "beat": "energy"
-    },
-    {
-      "name": "BBC News — Scotland",
-      "url": "https://feeds.bbci.co.uk/news/scotland/rss.xml",
-      "beat": "scotland"
-    }
+    { "name": "The Press and Journal — What's On", "url": "https://www.pressandjournal.co.uk/fp/entertainment/whats-on/feed/", "beat": "whats-on" },
+    { "name": "The Press and Journal — Food and Drink", "url": "https://www.pressandjournal.co.uk/fp/lifestyle/food-and-drink/feed/", "beat": "food" },
+    { "name": "The Press and Journal — Entertainment", "url": "https://www.pressandjournal.co.uk/fp/entertainment/feed/", "beat": "culture" },
+    { "name": "The Press and Journal — Lifestyle", "url": "https://www.pressandjournal.co.uk/fp/lifestyle/feed/", "beat": "city" },
+    { "name": "University of Aberdeen — News", "url": "https://www.abdn.ac.uk/news/rss.xml", "beat": "campus" },
+    { "name": "Aberdeen Live", "url": "https://www.aberdeenlive.news/?service=rss", "beat": "city" }
+  ],
+  "pages": [
+    { "name": "Aberdeen Performing Arts — What's On (Music Hall, HMT, Lemon Tree)", "url": "https://www.aberdeenperformingarts.com/whats-on/" },
+    { "name": "VisitAberdeenshire — What's On", "url": "https://www.visitabdn.com/whats-on" }
   ]
 }

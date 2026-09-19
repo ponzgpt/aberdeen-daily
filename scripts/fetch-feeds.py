@@ -115,8 +115,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sources", default="inbox/sources.json")
     parser.add_argument("--out", default="inbox/feeds.md")
-    parser.add_argument("--max-per-feed", type=int, default=6)
-    parser.add_argument("--hours", type=int, default=36,
+    parser.add_argument("--max-per-feed", type=int, default=8)
+    parser.add_argument("--hours", type=int, default=168,
                         help="drop items older than this many hours (0 = keep all)")
     args = parser.parse_args()
 

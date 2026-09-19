@@ -1,19 +1,16 @@
 {
   "masthead": "The Aberdeen Daily",
-  "motto": "Printed nightly for the Granite City",
+  "motto": "What's good in the Granite City today",
   "founded": "2026-09-05",
   "sections": [
     { "id": "front", "name": "Front Page" },
-    { "id": "city", "name": "The City" },
-    { "id": "council", "name": "Council & Politics" },
-    { "id": "energy", "name": "Energy & the North Sea" },
-    { "id": "business", "name": "Business" },
-    { "id": "weather", "name": "Weather" },
-    { "id": "harbour", "name": "Harbour & Coast" },
-    { "id": "sport", "name": "Sport" },
-    { "id": "campus", "name": "Universities" },
+    { "id": "whats-on", "name": "What's On" },
+    { "id": "food", "name": "Food & Drink" },
+    { "id": "city", "name": "Around Town" },
     { "id": "culture", "name": "Culture" },
-    { "id": "transport", "name": "Transport" },
-    { "id": "scotland", "name": "Scotland" }
+    { "id": "out", "name": "Out & About" },
+    { "id": "campus", "name": "Universities" },
+    { "id": "sport", "name": "Sport" },
+    { "id": "weather", "name": "Weather" }
   ]
 }

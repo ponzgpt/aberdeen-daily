@@ -10,15 +10,14 @@ import stat
 import pytest
 from conftest import REPO, SCRIPTS, frontmatter
 
-DESKS = ["weather-desk.py", "finance-desk.py"]
+DESKS = ["weather-desk.py"]
 
 
 @pytest.fixture
-def articles(weather_desk, finance_desk, open_meteo, quote):
+def articles(weather_desk, open_meteo):
     """One article from each data desk, all from fixtures."""
     return {
         "weather": weather_desk.build_article(open_meteo, "Aberdeen", "c"),
-        "finance": finance_desk.build_article([quote("NVDA"), quote("AMZN")]),
     }
 
 
@@ -118,11 +117,11 @@ def test_paper_json_is_well_formed():
 
 
 def test_no_edition_reprints_another_editions_story():
-    """A nightly writer must report new news, not copy a previous edition. Data desks
-    (weather, markets) keep their standing headlines; every other headline is unique."""
+    """A nightly writer must report new news, not copy a previous edition. The weather
+    desk keeps its standing headline; every other headline is unique."""
     seen: dict[str, str] = {}
     for article in sorted((REPO / "editions").glob("*/articles/*.md")):
-        if article.name.startswith(("02-", "03-")):
+        if article.name.startswith("02-"):
             continue
         headline = frontmatter(article.read_text()).get("headline", "").strip().lower()
         edition = article.parent.parent.name
