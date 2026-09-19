@@ -115,3 +115,16 @@ def test_paper_json_is_well_formed():
     assert len(ids) == len(set(ids)), "duplicate section ids"
     for section in paper["sections"]:
         assert section["id"] and section["name"]
+
+
+def test_no_edition_reprints_another_editions_story():
+    """A nightly writer must report new news, not copy a previous edition. Data desks
+    (weather, markets) keep their standing headlines; every other headline is unique."""
+    seen: dict[str, str] = {}
+    for article in sorted((REPO / "editions").glob("*/articles/*.md")):
+        if article.name.startswith(("02-", "03-")):
+            continue
+        headline = frontmatter(article.read_text()).get("headline", "").strip().lower()
+        edition = article.parent.parent.name
+        assert headline not in seen, f"{edition} repeats a headline from {seen.get(headline)}: {headline!r}"
+        seen[headline] = edition
