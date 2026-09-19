@@ -27,6 +27,8 @@ from pathlib import Path
 
 API = "https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=1d&interval=1d"
 HEADERS = {"User-Agent": "Mozilla/5.0 (vael-paper-example/1.0)"}
+# Readers know these by name, not by Yahoo's listing titles ("HARBOUR ENERGY PLC ORD 0.002P").
+NAMES = {"BZ=F": "Brent crude", "SHEL.L": "Shell", "BP.L": "BP", "HBR.L": "Harbour Energy"}
 
 
 def fetch_quote(ticker: str) -> dict:
@@ -45,7 +47,8 @@ def fetch_quote(ticker: str) -> dict:
     pct = meta.get("regularMarketChangePercent", 0.0)
     return {
         "symbol": meta.get("symbol", ticker),
-        "name": meta.get("shortName") or meta.get("longName") or ticker,
+        "name": NAMES.get(ticker) or meta.get("shortName") or meta.get("longName") or ticker,
+        "currency": meta.get("currency", "USD"),
         "price": price,
         "change": change,
         "pct": pct,
@@ -54,7 +57,12 @@ def fetch_quote(ticker: str) -> dict:
     }
 
 
-def money(x: float) -> str:
+def money(x: float, currency: str = "USD") -> str:
+    """London listings quote in pence (GBp); everything else here is in dollars."""
+    if currency == "GBp":
+        return f"{x:,.1f}p"
+    if currency == "GBP":
+        return f"£{x:,.2f}"
     return f"${x:,.2f}"
 
 
@@ -74,12 +82,11 @@ def build_article(quotes: list[dict]) -> str:
     down = len(quotes) - up
     best = max(quotes, key=lambda q: q["pct"])
     worst = min(quotes, key=lambda q: q["pct"])
-    names = ", ".join(q["name"] for q in quotes)
 
     # Five columns (Ticker, Price, Chg, %, 52-wk) risks a table_wide lint;
     # keep to four (all but one numeric) and fold the 52-week into the prose.
     rows = "\n".join(
-        f"| {q['symbol']} | {money(q['price'])} | "
+        f"| {q['symbol']} | {money(q['price'], q.get('currency', 'USD'))} | "
         f"{'+' if q['change'] >= 0 else '−'}{abs(q['change']):,.2f} | "
         f"{'+' if q['pct'] >= 0 else '−'}{abs(q['pct']):.2f}% |"
         for q in quotes
@@ -98,15 +105,13 @@ def build_article(quotes: list[dict]) -> str:
         direction = "lower"
 
     body = (
-        f"{spell(len(quotes))} of the names this paper follows closed {direction} "
-        f"today — {up} up, {down} down on the day. The standouts were "
+        f"{spell(len(quotes))} of the names this paper follows finished {direction} "
+        f"at the last close — {up} up, {down} down on the day. The standouts were "
         f"{best['name']}, {'up' if best['pct'] >= 0 else 'down'} {abs(best['pct']):.1f}%, "
         f"and {worst['name']}, {'down' if worst['pct'] < 0 else 'up'} "
         f"{abs(worst['pct']):.1f}%. "
-        f"The figures are the close as Yahoo Finance reported it at run time; "
-        f"the 52-week span for {names} runs from "
-        f"{min((q['lo52'] or q['price']) for q in quotes):,.0f} to "
-        f"{max((q['hi52'] or q['price']) for q in quotes):,.0f}. None of this is advice — "
+        f"The figures are the last close as Yahoo Finance reported it at run time; "
+        f"London shares are in pence, Brent in dollars a barrel. None of this is advice — "
         f"it is a board, not a recommendation, and the paper reads the same "
         f"line to itself every morning."
     )
@@ -115,7 +120,7 @@ def build_article(quotes: list[dict]) -> str:
 id: 03-the-markets
 headline: Markets at the Close
 deck: {deck}
-section: financial
+section: business
 priority: 3
 sources:
   - name: Yahoo Finance

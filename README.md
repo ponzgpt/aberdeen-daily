@@ -4,6 +4,8 @@ A nightly newspaper for Aberdeen, written by an agent: the local desks read
 real feeds, the figures come from code, and it will not publish an edition
 that fails its own checks.
 
+**Read it:** https://aberdeen-daily.technoir.cloud · [how it is written](https://aberdeen-daily.technoir.cloud/about.html)
+
 > **This is a fork.** The engine, the desk model and the write → check → fix
 > loop are the work of [**vaelkeep/hermes-paper-agent**](https://github.com/vaelkeep/hermes-paper-agent),
 > MIT licensed. What is mine here is the Aberdeen adaptation: the local
@@ -65,27 +67,20 @@ feed fails.
 
 ## Running it
 
-Prerequisites are unchanged from upstream: Python 3.11+, [uv](https://docs.astral.sh/uv/),
-Node 20+, and [Hermes Agent](https://hermes-agent.nousresearch.com). See
-[upstream's getting started](https://github.com/vaelkeep/hermes-paper-agent#-getting-started)
-for installing the Vael Paper engine — that part is identical here.
+Python 3.11+ and Node for the engine's reader; nothing else on the host.
 
 ```bash
-# 1. Pull tonight's Aberdeen news into the inbox
-python3 scripts/fetch-feeds.py
-
-# 2. Run the data desks into an edition directory
-python3 scripts/weather-desk.py editions/$(date -u -v+1d +%F)
-python3 scripts/finance-desk.py editions/$(date -u -v+1d +%F)
-
-# 3. Hand the edition to the agent to write the prose desks and the lead
-#    (see AGENTS.md for the loop the agent follows)
+python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
+python3 scripts/fetch-feeds.py                              # tonight's news into inbox/feeds.md
+E=editions/$(date -u -v+1d +%F)                             # GNU date: date -u -d tomorrow +%F
+python3 scripts/weather-desk.py $E --place Aberdeen
+python3 scripts/finance-desk.py $E
+# the agent writes the prose desks and the front page (AGENTS.md, "The nightly run")
+$(scripts/engine.sh)/vael-paper-check --root editions $E    # never publish on red
+./scripts/deploy.sh                                         # site; the edition also becomes a Beehiiv draft
 ```
 
-The desks that shipped upstream for a *personal* paper — `ledger-desk.py`
-and `steps-desk.py`, reading a household budget and a step count — are not
-part of this paper's nightly run. They are left in place so upstream changes
-still merge cleanly.
+The upstream personal desks (steps, ledger) and demo material were removed; this repo is only the Aberdeen paper.
 
 ## Licence
 

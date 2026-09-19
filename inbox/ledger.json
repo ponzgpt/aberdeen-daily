@@ -1,9 +1,0 @@
-{
-  "rows": [
-    { "day": "Fri", "item": "Groceries", "amount": "$184.20" },
-    { "day": "Fri", "item": "Furnace service", "amount": "$212.00" },
-    { "day": "Sun", "item": "Metro", "amount": "−$8.00" },
-    { "day": "Sun", "item": "Nationals tickets", "amount": "$54.00" },
-    { "day": "Wed", "item": "Coffee, the corner", "amount": "$12.50" }
-  ]
-}

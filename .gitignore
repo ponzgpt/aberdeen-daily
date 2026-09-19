@@ -24,4 +24,8 @@ __pycache__/
 
 # Test and tooling caches
 .pytest_cache/
-.ruff_cache/
+.ruff_cache/.engine/
+.venv/
+.claude/
+inbox/feeds.md
+site/

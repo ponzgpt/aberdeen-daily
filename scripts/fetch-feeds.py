@@ -28,7 +28,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from xml.etree import ElementTree
@@ -68,7 +68,7 @@ def published(item):
             except ValueError:
                 continue
         if when.tzinfo is None:
-            when = when.replace(tzinfo=timezone.utc)
+            when = when.replace(tzinfo=UTC)
         return when
     return None
 
@@ -128,7 +128,7 @@ def main():
 
     cutoff = None
     if args.hours:
-        cutoff = datetime.now(timezone.utc) - timedelta(hours=args.hours)
+        cutoff = datetime.now(UTC) - timedelta(hours=args.hours)
 
     blocks, failures, seen = [], [], set()
     for source in sources:
@@ -165,7 +165,7 @@ def main():
             print(f"  {line}", file=sys.stderr)
         return 1
 
-    today = datetime.now(timezone.utc).strftime("%A %d %B %Y")
+    today = datetime.now(UTC).strftime("%A %d %B %Y")
     header = (
         f"# Feeds — {today}\n\n"
         "Fetched by `scripts/fetch-feeds.py`. Each block is one item: a "
@@ -178,7 +178,8 @@ def main():
     )
     Path(args.out).write_text(header + "\n".join(blocks), encoding="utf-8")
 
-    print(f"wrote {len(blocks)} items from {len(sources) - len(failures)}/{len(sources)} feeds to {args.out}")
+    ok = len(sources) - len(failures)
+    print(f"wrote {len(blocks)} items from {ok}/{len(sources)} feeds to {args.out}")
     for line in failures:
         print(f"  feed failed — {line}", file=sys.stderr)
     return 0

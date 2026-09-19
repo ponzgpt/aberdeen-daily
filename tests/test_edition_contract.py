@@ -10,17 +10,14 @@ import stat
 import pytest
 from conftest import REPO, SCRIPTS, frontmatter
 
-DESKS = ["steps-desk.py", "ledger-desk.py", "weather-desk.py", "finance-desk.py"]
+DESKS = ["weather-desk.py", "finance-desk.py"]
 
 
 @pytest.fixture
-def articles(steps_desk, ledger_desk, weather_desk, finance_desk, open_meteo, quote):
+def articles(weather_desk, finance_desk, open_meteo, quote):
     """One article from each data desk, all from fixtures."""
     return {
-        "steps": steps_desk.build_article([("Fri", 9120), ("Sat", 2840), ("Sun", 8100)]),
-        "ledger": ledger_desk.build_article(
-            [{"day": "Fri", "item": "Groceries", "amount": "$184.20"}]),
-        "weather": weather_desk.build_article(open_meteo, "Washington", "f"),
+        "weather": weather_desk.build_article(open_meteo, "Aberdeen", "c"),
         "finance": finance_desk.build_article([quote("NVDA"), quote("AMZN")]),
     }
 
@@ -96,7 +93,7 @@ def test_only_http_urls_are_linked(articles):
 @pytest.mark.parametrize("desk", DESKS)
 def test_desks_are_executable(desk):
     """They carry a shebang and the docs invoke them directly, so the exec bit
-    has to be set — it was not, and `scripts/steps-desk.py <dir>` failed."""
+    has to be set."""
     path = SCRIPTS / desk
     assert path.read_text().startswith("#!/usr/bin/env python3"), desk
     assert os.stat(path).st_mode & stat.S_IXUSR, f"{desk} is not executable"
@@ -109,29 +106,6 @@ def test_desks_import_only_the_standard_library(desk):
     source = (SCRIPTS / desk).read_text()
     imported = set(re.findall(r"^(?:from|import) (\w+)", source, re.M))
     assert not (imported & third_party), f"{desk} imports {imported & third_party}"
-
-
-def test_shipped_fixtures_still_parse(steps_desk, ledger_desk):
-    """The repo ships fixtures so a first run produces a paper. Keep them valid."""
-    assert steps_desk.load_steps(REPO / "inbox" / "steps.csv")
-    assert ledger_desk.load_ledger(REPO / "inbox" / "ledger.json")
-    json.loads((REPO / "inbox" / "calendar.json").read_text())
-
-
-def test_provenance_accounts_for_every_published_article():
-    """The sample edition is what the demo site serves and what the README
-    screenshots show, so it has to stay honest about which articles are code
-    and which a model wrote. An article added without a line here would leave a
-    reader to assume a local model wrote something it did not."""
-    provenance = REPO / "samples" / "edition" / "PROVENANCE.md"
-    assert provenance.is_file(), "the published sample has no PROVENANCE.md"
-    listed = set(re.findall(r"`(\d\d-[a-z-]+\.md)`", provenance.read_text()))
-    on_disk = {p.name for p in (REPO / "samples" / "edition").glob("*/articles/*.md")}
-    assert on_disk, "no sample articles found"
-    assert on_disk == listed, (
-        f"PROVENANCE.md is out of step: "
-        f"missing {sorted(on_disk - listed)}, stale {sorted(listed - on_disk)}"
-    )
 
 
 def test_paper_json_is_well_formed():

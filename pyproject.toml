@@ -9,6 +9,7 @@ addopts = "-q --strict-markers"
 
 [tool.ruff]
 line-length = 100
+extend-exclude = [".engine"]
 target-version = "py311"
 
 [tool.ruff.lint]

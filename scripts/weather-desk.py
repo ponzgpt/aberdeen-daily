@@ -10,10 +10,11 @@ script if the numbers or the phrasing are wrong; do not have a model
 
 Usage:
     weather-desk.py <edition_dir> [--lat L] [--lon L] [--place NAME] [--c|--f]
-    weather-desk.py <edition_dir> --place Washington   # uses env defaults
+    weather-desk.py <edition_dir> --place Aberdeen     # uses env defaults
 
-Defaults are Aberdeen, Scotland (57.1497, -2.0943), in Celsius. Requires network; exits 1 (and writes nothing)
-if the fetch fails, so a nightly job can fail the run rather than invent a
+Defaults are Aberdeen, Scotland (57.1497, -2.0943), in Celsius. Requires network;
+exits 1 (and writes nothing) if the fetch fails, so a nightly job can fail the run
+rather than invent a
 paper day with a guessed forecast.
 
 Writes <edition_dir>/articles/02-your-week-in-weather.md (code 02 — right

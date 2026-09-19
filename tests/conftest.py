@@ -18,7 +18,7 @@ FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 
 def load_desk(filename: str):
-    """Import a desk script by path, e.g. load_desk("steps-desk.py")."""
+    """Import a desk script by path, e.g. load_desk("weather-desk.py")."""
     path = SCRIPTS / filename
     name = filename.replace("-", "_").removesuffix(".py")
     spec = importlib.util.spec_from_file_location(name, path)
@@ -26,16 +26,6 @@ def load_desk(filename: str):
     sys.modules[name] = module
     spec.loader.exec_module(module)
     return module
-
-
-@pytest.fixture(scope="session")
-def steps_desk():
-    return load_desk("steps-desk.py")
-
-
-@pytest.fixture(scope="session")
-def ledger_desk():
-    return load_desk("ledger-desk.py")
 
 
 @pytest.fixture(scope="session")

@@ -75,7 +75,7 @@ def test_count_matches_the_tickers_given(finance_desk, quote):
 def test_direction_is_honest(finance_desk, quote, pcts, expected):
     """Regression: an all-down day reported "mixed"."""
     quotes = [quote(f"T{i}", pct=p, change=p) for i, p in enumerate(pcts)]
-    assert f"closed {expected} today" in finance_desk.build_article(quotes)
+    assert f"finished {expected} at the last close" in finance_desk.build_article(quotes)
 
 
 def test_declines_use_the_typographic_minus(finance_desk, quote):
