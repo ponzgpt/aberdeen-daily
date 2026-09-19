@@ -23,7 +23,7 @@ HC="wget -q -O /dev/null http://127.0.0.1:$PORT/healthz || exit 1"
 if docker service inspect $APP >/dev/null 2>&1; then
   docker service update --quiet --no-resolve-image --image $APP:$SHA --health-cmd "\$HC" $APP
 else
-  docker service create --quiet --no-resolve-image --name $APP --network dokploy-network --replicas 1 --health-cmd "\$HC" $APP:$SHA
+  docker service create --quiet --no-resolve-image --name $APP --network dokploy-network --replicas 1 --update-order start-first --health-cmd "\$HC" $APP:$SHA
 fi
 cat > /etc/dokploy/traefik/dynamic/$APP.yml <<YML
 http:
