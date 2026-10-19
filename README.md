@@ -6,6 +6,8 @@ sources, and it will not publish an edition that fails its own checks.
 
 **Read it:** https://aberdeen-daily.technoir.cloud · [how it is written](https://aberdeen-daily.technoir.cloud/about.html)
 
+> **Status: paused.** One edition so far (20 September 2026). The nightly run is not scheduled at the moment.
+
 > **This is a fork.** The engine, the desk model and the write → check → fix
 > loop are the work of [**vaelkeep/hermes-paper-agent**](https://github.com/vaelkeep/hermes-paper-agent),
 > MIT licensed. What is mine here is the Aberdeen adaptation: the local
